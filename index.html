@@ -1,81 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
-    <title>當機等候頁面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <title>網站忙碌中｜CPBL SHOP</title>
     <style>
+        :root {
+            color-scheme: light;
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            color: #202633;
+            background: #f5f6f8;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-        /* 1. 基本設定 */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            /* 移除預設邊距 */
+            min-width: 320px;
+            min-height: 100vh;
             margin: 0;
-            /* 設定字體 */
-            font-family: sans-serif;
         }
 
-        .container {
-            /* 設定背景色 */
-            background-color: #278a2c;
-            /* 防止文字被選取 */
-            user-select: none;
+        .top-bar {
+            height: 6px;
+            background: linear-gradient(90deg, #153d67 0 50%, #d51f45 50% 100%);
+        }
 
-            /* 讓內容佔滿整個視窗 */
-            height: 100vh;
-
-            /* 垂直排列內容 */
+        .site-header {
+            height: 82px;
+            padding: 0 clamp(20px, 6vw, 88px);
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-bottom: 1px solid #e9ebef;
         }
 
-        /* 2. 標題圖片 */
-        .title {
-            /* 上方間距 */
-            margin-top: 2em;
-
-            /* 寬度設定 */
-            width: 80%;
-            max-width: 600px;
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: inherit;
+            text-decoration: none;
         }
 
-        /* 3. 貓咪圖片 */
-        .cat-img {
-            /* 填滿剩餘空間 */
-            flex: 1;
-
-            /* 寬度設定 */
-            width: 100%;
-            max-width: 800px;
-
-            /* 背景圖片設定 */
-            background-position: bottom;
-            background-size: contain;
-            background-repeat: no-repeat;
-
-            /* 文字置中 */
-            text-align: center;
-            /* 文字樣式 */
-            color: white;
-            font-size: 80px;
+        .brand-name {
+            font-family: Impact, "Arial Narrow", sans-serif;
+            font-size: 27px;
+            font-style: italic;
             font-weight: 900;
-            -webkit-text-stroke: 3px rgb(67, 70, 68);
-
+            letter-spacing: -1.6px;
+            line-height: 1;
         }
 
-        /* 4. 貓咪狀態 */
-        #p {
-            background-image: url("imgs/connecting.svg");
+        .brand-name span:first-child {
+            color: #153d67;
         }
-        #op {
-            background-image: url("imgs/op.png");
+
+        .brand-name span:last-child {
+            color: #d51f45;
+        }
+
+        .brand-caption {
+            padding-left: 10px;
+            border-left: 1px solid #d9dce2;
+            color: #727987;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .header-note {
+            color: #687080;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        main {
+            min-height: calc(100vh - 88px);
+            padding: clamp(36px, 8vh, 80px) 20px 52px;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(ellipse at 50% 35%, rgba(219, 226, 237, .52), transparent 58%),
+                #f5f6f8;
+        }
+
+        .waiting-card {
+            position: relative;
+            width: min(100%, 920px);
+            min-height: 430px;
+            padding: clamp(30px, 6vw, 68px);
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            align-items: center;
+            gap: clamp(20px, 5vw, 56px);
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #eaecf0;
+            border-radius: 4px;
+            box-shadow: 0 18px 55px rgba(23, 39, 62, .08);
+        }
+
+        .waiting-card::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #153d67 0 68%, #d51f45 68% 100%);
+            content: "";
+        }
+
+        .message {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            margin: 0 0 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #687080;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .eyebrow::before {
+            width: 25px;
+            height: 2px;
+            background: #d51f45;
+            content: "";
+        }
+
+        h1 {
+            margin: 0;
+            color: #1e2938;
+            font-size: clamp(27px, 3.5vw, 39px);
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.5;
+        }
+
+        .description {
+            margin: 18px 0 0;
+            color: #747c89;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .status {
+            margin-top: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #153d67;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .spinner {
+            width: 17px;
+            height: 17px;
+            border: 2px solid #dbe3eb;
+            border-top-color: #d51f45;
+            border-radius: 50%;
+            animation: spin .9s linear infinite;
+        }
+
+        .mascot {
+            min-width: 0;
+            height: 310px;
+            display: grid;
+            place-items: center;
+            background: #f7f8fa;
+            border-radius: 3px;
+        }
+
+        .mascot img {
+            width: 100%;
+            height: 100%;
+            padding: 12px;
+            object-fit: contain;
+        }
+
+        .footer {
+            margin-top: 28px;
+            color: #9298a2;
+            font-size: 12px;
+            letter-spacing: .5px;
+            text-align: center;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 640px) {
+            .site-header {
+                height: 70px;
+            }
+
+            .header-note {
+                font-size: 11px;
+            }
+
+            .brand-caption {
+                display: none;
+            }
+
+            main {
+                min-height: calc(100vh - 76px);
+                padding: 28px 16px 40px;
+            }
+
+            .waiting-card {
+                padding: 34px 26px 26px;
+                grid-template-columns: 1fr;
+                gap: 26px;
+            }
+
+            .message {
+                order: 1;
+            }
+
+            .mascot {
+                height: min(62vw, 280px);
+                order: 2;
+            }
+
+            .eyebrow {
+                margin-bottom: 14px;
+            }
+
+            .description {
+                margin-top: 12px;
+                font-size: 14px;
+            }
+
+            .status {
+                margin-top: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </head>
-
 <body>
-<div class="container">
-    <img class="title" src="imgs/connecting_text.svg" alt="connecting">
-    <div class="cat-img" id="p">777</div>
-</div>
+    <div class="top-bar" aria-hidden="true"></div>
+    <header class="site-header">
+        <a class="brand" href="#" aria-label="CPBL SHOP">
+            <span class="brand-name"><span>CPBL</span> <span>SHOP</span></span>
+            <span class="brand-caption">中華職棒官方商城</span>
+        </a>
+        <span class="header-note">官方商城・連線狀態</span>
+    </header>
 
+    <main>
+        <div>
+            <section class="waiting-card" aria-labelledby="waiting-title">
+                <div class="message">
+                    <p class="eyebrow">CPBL SHOP｜系統通知</p>
+                    <h1 id="waiting-title">人數眾多，網站忙碌中... 請耐心等待</h1>
+                    <p class="description">目前進入網站的球迷較多，請稍候片刻，<br>我們將盡快為您重新連線。</p>
+                    <div class="status" role="status">
+                        <span class="spinner" aria-hidden="true"></span>
+                        <span>正在為您保留連線</span>
+                    </div>
+                </div>
+                <div class="mascot">
+                    <img src="imgs/plushie.w01.1.avif" alt="CPBL 吉祥物玩偶">
+                </div>
+            </section>
+            <footer class="footer">感謝您的耐心等候・CPBL SHOP</footer>
+        </div>
+    </main>
 </body>
 </html>
